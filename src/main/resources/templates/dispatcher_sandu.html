@@ -1,0 +1,157 @@
+<html>
+<head>
+    <title>Spot that Fire</title>
+    <style>
+
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<div class="container1">
+    <div class="row">
+        <div data-toggle="modal" data-target="#myModal4" style="height: 500px; background-color: gray;">map here</div>
+
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <br/>
+            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">Create wildfire alert</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Create wildfire alert</h4>
+                        </div>
+                        <div class="modal-body text-left">
+                            <form>
+                                <div class="form-group">
+                                    <label>Select safe locations from nearest recommandations</label>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Apahida
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Floresti
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Borhanci
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Select live feed source from available aerial surveillance</label>
+                                    <select id="myselect" onchange=" $('#livefeed').show();">
+                                        <option>Drone 23</option>
+                                        <option>Drone 45</option>
+                                        <option>Fire brigade helicopter 3</option>
+                                    </select>
+
+                                    <div id="livefeed" style="display:none">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/rV86Btwitbg?controls=0&amp;start=25&amp;autoplay=1&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Remarks</label>
+                                    <textarea class="form-control" rows="3"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#myModal2">Create alert</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel2">Wildfire alert was created</h4>
+                        </div>
+                        <div class="modal-body text-left">
+                            Please keep this alert updated.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel3">Wildfire reported</h4>
+                </div>
+                <div class="modal-body text-left">
+                    <p><img style="width: 100%;" src="https://www.hcn.org/articles/wildfire-the-wests-dramatic-wildfire-season-explained/mt-fire1-web-jpg/@@images/217b3cd5-bdbb-43e3-a745-b9b4459027d5.jpeg"/></p>
+
+                    <br/>
+                    <p><div class="alert alert-danger" role="alert">The reporter is in distress</div></p>
+                    <p><i>The fire is real, please send all units!</i></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel4">Resolve alert</h4>
+                </div>
+                <div class="modal-body text-left">
+                    Are you sure you want to remove this alert?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Yes, the fire is gone</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<h1 id="test">Spot that fire homepage</h1>-->
+</div>
+
+<script>
+
+    $( "#test" ).click(function() {
+        console.log( "Handler for .click() called." );
+        $.get( "test", function( data ) {
+            $( ".result" ).html( data );
+            alert( "Load was performed." );
+        });
+    });
+
+
+
+</script>
+</body>
+</html>

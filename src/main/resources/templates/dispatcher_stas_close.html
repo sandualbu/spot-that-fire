@@ -1,0 +1,360 @@
+<html>
+<head>
+    <title>Spot that Fire</title>
+    <style>
+        #mapContainer {
+            width: 100%;
+            height: 85%;
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.0/mapsjs-ui.css?dp-version=1533195059"/>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+
+</head>
+<body>
+
+
+<div class="container1">
+    <div class="row">
+        <!--<div data-toggle="modal" data-target="#myModal4" style="height: 500px; background-color: gray;">map here</div>-->
+
+        <div class="container" id="mapContainer"></div>
+
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <br/>
+            <!--<button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">Create-->
+                <!--wildfire alert-->
+            <!--</button>-->
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Create wildfire alert</h4>
+                        </div>
+                        <div class="modal-body text-left">
+                            <form>
+                                <div class="form-group">
+                                    <label>Select safe locations from nearest recommandations</label>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Apahida
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Floresti
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Borhanci
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Select live feed source from available aerial surveillance</label>
+                                    <select id="myselect" onchange=" $('#livefeed').show();">
+                                        <option>Please select</option>
+                                        <option>Drone 23</option>
+                                        <option>Drone 45</option>
+                                        <option>Fire brigade helicopter 3</option>
+                                    </select>
+
+                                    <div id="livefeed" style="display:none">
+                                        <iframe width="560" height="315"
+                                                src="https://www.youtube.com/embed/rV86Btwitbg?controls=0&amp;start=25&amp;autoplay=1&amp;showinfo=0&amp;mute=1"
+                                                frameborder="0" allow="autoplay; encrypted-media"
+                                                allowfullscreen></iframe>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Remarks</label>
+                                    <textarea class="form-control" rows="3"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" data-toggle="modal"
+                                    data-target="#myModal2">Create alert
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel2">Wildfire alert was created</h4>
+                        </div>
+                        <div class="modal-body text-left">
+                            Please keep this alert updated.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel3">Wildfire reported</h4>
+                </div>
+                <div class="modal-body text-left">
+                    <p><img style="width: 100%;"
+                            src="https://www.hcn.org/articles/wildfire-the-wests-dramatic-wildfire-season-explained/mt-fire1-web-jpg/@@images/217b3cd5-bdbb-43e3-a745-b9b4459027d5.jpeg"/>
+                    </p>
+
+                    <br/>
+                    <p>
+                    <div class="alert alert-danger" role="alert">The reporter is in distress</div>
+                    </p>
+                    <p><i>The fire is real, please send all units!</i></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal31" tabindex="-1" role="dialog" aria-labelledby="myModalLabel31">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel31">Wildfire reported</h4>
+                </div>
+                <div class="modal-body text-left">
+                    <p><img style="width: 100%;"
+                            src="https://www.telegraph.co.uk/content/dam/news/2017/12/23/c2e8dd81-4dfe-466c-9b47-0249fbec9ab8_trans_NvBQzQNjv4BqqVzuuqpFlyLIwiB6NTmJwdCbWRXIg48_r3bhCwNyiro.jpeg"/>
+                    </p>
+
+                    <br/>
+                    <p>
+                    <div class="alert alert-danger" role="alert">The reporter is in distress1</div>
+                    </p>
+                    <p><i>The fire is real, please send all units1!</i></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal32" tabindex="-1" role="dialog" aria-labelledby="myModalLabel32">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel32">Wildfire reported</h4>
+                </div>
+                <div class="modal-body text-left">
+                    <p><img style="width: 100%;"
+                            src="https://amp.businessinsider.com/images/5a278dfc3dbef471018ba490-750-431.jpg"/>
+                    </p>
+
+                    <br/>
+                    <p>
+                    <div class="alert alert-danger" role="alert">The reporter is in distress2</div>
+                    </p>
+                    <p><i>The fire is real, please send all units2!</i></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel4">Resolve alert</h4>
+                </div>
+                <div class="modal-body text-left">
+                    Are you sure you want to remove this alert?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="map.removeObject(circle);map.removeObject(group)">Yes, the fire is gone</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<h1 id="test">Spot that fire homepage</h1>-->
+</div>
+
+<script>
+
+
+    var svgMarkup = '<svg xmlns="http://www.w3.org/2000/svg" overflow="inherit" viewBox="0 0 50 50" width="30" height="30" baseProfile="tiny" version="1.2"><path d="M 25.335 24.297 s -4.839 3.893 -4.839 7.04 c 0 1.409 2.074 2.817 4.839 2.817 c 2.763 0 4.837 -1.408 4.837 -2.817 c 0 -3.26 -4.837 -7.04 -4.837 -7.04 Z m 17.641 -7.116 c 0.28 -3.428 1.274 -6.575 3.024 -9.459 l -6.719 -6.722 c -2.122 1.828 -4.54 2.84 -7.28 3.019 c -2.51 0.227 -4.889 -0.25 -7.126 -1.435 c -2.302 1.146 -4.672 1.625 -7.143 1.435 c -2.555 -0.229 -4.862 -1.135 -6.927 -2.741 l -6.738 6.719 c 1.657 2.926 2.58 5.987 2.761 9.184 c 0.086 1.472 -0.334 3.497 -1.276 6.117 c -0.493 1.452 -0.865 2.711 -1.12 3.764 c -0.236 1.045 -0.383 1.895 -0.431 2.531 c -0.035 2.79 0.748 5.311 2.353 7.55 c 1.254 1.635 3.322 3.441 6.194 5.415 c 3.143 1.6 5.574 2.638 7.277 3.082 l 1.412 0.656 c 0.445 0.212 0.921 0.42 1.417 0.647 c 1.071 0.641 1.823 1.337 2.221 2.056 c 0.485 -0.777 1.254 -1.456 2.278 -2.056 c 0.722 -0.315 1.331 -0.589 1.822 -0.828 l 1.066 -0.476 c 0.364 -0.181 0.843 -0.388 1.419 -0.616 c 0.581 -0.229 1.302 -0.509 2.16 -0.821 c 1.659 -0.587 2.869 -1.143 3.635 -1.645 c 2.786 -1.974 4.823 -3.75 6.118 -5.34 c 1.663 -2.248 2.47 -4.779 2.433 -7.625 c -0.099 -1.274 -0.638 -3.313 -1.617 -6.09 c -0.933 -2.705 -1.347 -4.805 -1.213 -6.321 Z m -17.641 19.789 c -6.107 0 -11.75 -5.044 -11.75 -11.265 c 0 -4.225 3.23 -8.216 4.147 -9.857 l 2.764 4.225 l 4.839 -7.04 l 4.837 7.04 l 2.768 -4.225 c 0.914 1.641 4.147 5.632 4.147 9.857 c 0 6.221 -5.644 11.265 -11.752 11.265 Z" /></svg>';
+
+    var icon = new H.map.Icon(svgMarkup);
+
+
+    function addRedCircle(map) {
+
+        circle = new H.map.Circle(
+            // The central point of the circle
+            {lat: 46.770241, lng: 23.594094},
+            // The radius of the circle in meters
+            500,
+            {
+                style: {
+                    strokeColor: 'rgba(231, 18, 18, 0.32)', // Color of the perimeter
+                    lineWidth: 2,
+                    fillColor: 'rgba(231, 18, 18, 0.32)'  // Color of the circle
+                }
+            }
+        )
+
+        map.addObject(circle);
+
+        circle.addEventListener('tap', function (evt) {
+
+            console.log('dcircle event called');
+            $('#myModal4').modal('show');
+
+
+
+        }, false);
+
+
+
+
+    }
+
+
+    function addMarkerToGroup(group, coordinate, html) {
+        var marker = new H.map.Marker(coordinate, {icon: icon});
+        // add custom data to the marker
+        marker.setData(html);
+        group.addObject(marker);
+    }
+
+    function addInfoBubble(map) {
+        group = new H.map.Group();
+
+        map.addObject(group);
+
+        // add 'tap' event listener, that opens info bubble, to the group
+        group.addEventListener('tap', function (evt) {
+
+            var bubble = new H.ui.InfoBubble(evt.target.getPosition(), {
+                // read custom data
+                content: evt.target.getData()
+            });
+            console.log('event called');
+            var rnd = Math.random();
+
+            if (rnd < 0.3) {
+                $('#myModal3').modal('show');
+            } else if (rnd < 0.7) {
+                $('#myModal31').modal('show');
+            } else {
+                $('#myModal32').modal('show');
+            }
+
+
+            // show info bubble
+            // ui.addBubble(bubble);
+        }, false);
+
+
+        addMarkerToGroup(group, {lat: 46.770439, lng: 23.591423},
+            '<div>Fire Report #1</div>');
+
+        addMarkerToGroup(group, {lat: 46.767306, lng: 23.653840},
+            '<div >Fire Report #2</div>');
+
+        addMarkerToGroup(group, {lat: 46.773507, lng: 23.551826},
+            '<div >Fire Report #3</div>');
+
+        addMarkerToGroup(group, {lat: 46.771416, lng: 23.598138},
+            '<div >Fire Report #4</div>');
+
+        addMarkerToGroup(group, {lat: 46.770731, lng: 23.594958},
+            '<div >Fire Report #5</div>');
+
+        addMarkerToGroup(group, {lat: 46.770241, lng: 23.594094},
+            '<div >Fire Report #6</div>');
+
+    }
+
+
+// initialize communication with the platform
+    var platform = new H.service.Platform({
+        app_id: 'devportal-demo-20180625',
+        app_code: '9v2BkviRwi9Ot26kp2IysQ',
+        useHTTPS: true
+    });
+    var pixelRatio = window.devicePixelRatio || 1;
+    var defaultLayers = platform.createDefaultLayers({
+        tileSize: pixelRatio === 1 ? 256 : 512,
+        ppi: pixelRatio === 1 ? undefined : 320
+    });
+
+    // initialize a map - this map is centered over Europe
+    var map = new H.Map(document.getElementById('mapContainer'),
+        defaultLayers.normal.map, {
+            center: {lat: 46.770439, lng: 23.591423},
+            zoom: 13,
+            pixelRatio: pixelRatio
+        });
+
+    // MapEvents enables the event system
+    // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+    var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+    // create default UI with layers provided by the platform
+    var ui = H.ui.UI.createDefault(map, defaultLayers);
+
+    // Now use the map as required...
+    addInfoBubble(map);
+    addRedCircle(map);
+
+
+
+</script>
+</body>
+</html>
